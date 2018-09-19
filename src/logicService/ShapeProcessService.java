@@ -1,7 +1,6 @@
 package logicService;
 
 import util.MyShape;
-import vo.ShapesVO;
 
 public interface ShapeProcessService {
 

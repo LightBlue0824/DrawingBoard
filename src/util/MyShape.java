@@ -1,7 +1,6 @@
 package util;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class MyShape {
 //    private LinkedList<Point> pointList = new LinkedList<>();      //记录point
@@ -10,7 +9,7 @@ public class MyShape {
 
     /**
      * 添加一个point
-     * @param p
+     * @param p 点
      */
     public void addPoint(Point p){
         pointList.add(p);
@@ -56,8 +55,8 @@ public class MyShape {
 
     /**
      * 检查并记录最小最大值
-     * @param x
-     * @param y
+     * @param x 当前点x
+     * @param y 当前点y
      */
     private void checkMinAndMax(int x, int y){
         if(pointList.size() == 1){

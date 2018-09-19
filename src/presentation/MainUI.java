@@ -20,7 +20,7 @@ public class MainUI {
         frame.setSize(1280, 720);
         frame.add(panel);
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
 }

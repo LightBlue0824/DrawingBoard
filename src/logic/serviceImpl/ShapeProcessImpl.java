@@ -4,9 +4,7 @@ import logicService.ShapeProcessService;
 import util.MyShape;
 import util.Point;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class ShapeProcessImpl implements ShapeProcessService {
     @Override
@@ -19,8 +17,8 @@ public class ShapeProcessImpl implements ShapeProcessService {
 
     /**
      * 计算图形的面积
-     * @param shape
-     * @return
+     * @param shape 图形
+     * @return 面积
      */
     private double calcArea(MyShape shape){
         ArrayList<Point> points = shape.getPointList();
@@ -43,13 +41,11 @@ public class ShapeProcessImpl implements ShapeProcessService {
 
     /**
      * 判断图形的形状
-     * @param shape
-     * @return
+     * @param shape 图形
+     * @return 形状
      */
     private String judgeShape(MyShape shape){
-        String result = "其他图形";
-
-        ArrayList<Point> points = shape.getPointList();
+        String result;
 
         double area = calcArea(shape);
         double circleArea = calcRectArea(shape);
@@ -83,11 +79,11 @@ public class ShapeProcessImpl implements ShapeProcessService {
 
     /**
      * 计算外接矩形的面积（近似外接）
-     * @param shape
-     * @return
+     * @param shape 图形
+     * @return 面积
      */
     private double calcRectArea(MyShape shape) {
-        double area = 0;
+        double area;
 
         int width = shape.getMaxX() - shape.getMinX();
         int height = shape.getMaxY() - shape.getMinY();
