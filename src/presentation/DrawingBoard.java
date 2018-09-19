@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class DrawingBoard extends JPanel{
 
-    private boolean isMoving = false;           //记录是否在按住拖动鼠标
+//    private boolean isMoving = false;           //记录是否在按住拖动鼠标
     private ArrayList<MyShape> shapeArrayList = new ArrayList<>();
     private MyShape curShape = new MyShape();   //记录当前正在画的图形
 
@@ -98,17 +98,29 @@ public class DrawingBoard extends JPanel{
         public void mousePressed(MouseEvent e) {
             //按下鼠标时，设置初始坐标
             g2 = (Graphics2D)getGraphics();
+            g2.setStroke(new BasicStroke(2f));
             x1 = e.getX();
             y1 = e.getY();
         }
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            //鼠标释放时，记录为一个图形
+            //鼠标释放时
+            //自动补全
+//            Point firstPoint = curShape.getPointList().getFirst();
+//            Point lastPoint = curShape.getPointList().getLast();
+            if(curShape.getPointList().size() == 0){        //如果是单机鼠标,没有记录点
+                return;
+            }
+            Point firstPoint = curShape.getPointList().get(0);
+            Point lastPoint = new Point(e.getX(), e.getY());
+            g2.drawLine(firstPoint.getX(), firstPoint.getY(), lastPoint.getX(), lastPoint.getY());
+
+            //记录为一个图形
             shapeArrayList.add(curShape);
 
             //释放时进行识别
-            shapeProcess.recognizeShape(curShape);
+            String recognizeResult = shapeProcess.recognizeShape(curShape);
 
             curShape = new MyShape();
         }
@@ -136,7 +148,6 @@ public class DrawingBoard extends JPanel{
             Point curPoint = new Point(xCur, yCur);
             curShape.addPoint(curPoint);
 
-            g2.setStroke(new BasicStroke(2.0f));
 //            System.out.println(x1 + " " + y1+" "+xCur + "  " + yCur);
             g2.drawLine(x1, y1, xCur, yCur);
             x1 = xCur;          //记录为起点
