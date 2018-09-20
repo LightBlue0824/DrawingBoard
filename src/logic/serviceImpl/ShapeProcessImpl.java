@@ -73,7 +73,7 @@ public class ShapeProcessImpl implements ShapeProcessService {
             result = "线";
         }
 
-        System.out.println(result);
+//        System.out.println(result);
         return result;
     }
 

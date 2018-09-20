@@ -121,6 +121,9 @@ public class DrawingBoard extends JPanel{
 
             //释放时进行识别
             String recognizeResult = shapeProcess.recognizeShape(curShape);
+            curShape.setType(recognizeResult);      //记录，还原时不需再识别
+            Point centerPoint = curShape.getCenterPoint();
+            g2.drawString(recognizeResult, centerPoint.getX(), centerPoint.getY());
 
             curShape = new MyShape();
         }

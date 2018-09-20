@@ -6,6 +6,7 @@ public class MyShape {
 //    private LinkedList<Point> pointList = new LinkedList<>();      //记录point
     private ArrayList<Point> pointList = new ArrayList<>();      //记录point
     private int minX = 0, maxX = 0, minY = 0, maxY = 0;         //方便计算中心
+    private String type = "未识别";
 
     /**
      * 添加一个point
@@ -79,5 +80,13 @@ public class MyShape {
         else if(y > maxY){
             maxY = y;
         }
+    }
+
+    public void setType(String t){
+        this.type = t;
+    }
+
+    public String getType(){
+        return this.type;
     }
 }
