@@ -145,43 +145,6 @@ class DrawingBoard extends JPanel{
         }
     }
 
-//    /**
-//     * 重写父类paint，实现画图
-//     * @param g
-//     */
-//    @Override
-//    public void paint(Graphics g) {
-//        super.paint(g);
-//
-//        System.out.println("here");
-//        g2 = (Graphics2D)g;
-////        Graphics2D g2 = (Graphics2D)g;
-//        g2.setStroke(new BasicStroke(2.0f));
-////        g.drawLine(10,10,30,30);
-//
-////        //画出每个图形
-////        for(int i = 0; i < shapeArrayList.size(); i++){
-////            LinkedList<Point> pointList = shapeArrayList.get(i).getPointList();
-////            //迭代画出点
-////            Iterator<util.Point> it =  pointList.iterator();
-////            if(it.hasNext()){
-////                Point startP = it.next();       //第一个起点
-////
-////                System.out.println("1"+pointList.size());
-////                while(it.hasNext()){
-////                    Point endP = it.next();
-////                    System.out.println("2");
-////
-////                    System.out.println(startP.getX()+" "+startP.getY()+" "+endP.getX()+" "+endP.getY());
-////                    g2.drawLine(startP.getX(), startP.getY(), endP.getX(), endP.getY());
-////                    startP = endP;          //终点为下一次的起点
-////                }
-////            }
-////        }
-//    }
-
-    //-------------------------------
-    //-------------------------------
 
     /**
      * 画板的鼠标监听类
@@ -209,28 +172,6 @@ class DrawingBoard extends JPanel{
             //添加线的结束点
             curShape.addVertex(new Point(e.getX(), e.getY()));
 
-            //鼠标释放时
-            //自动补全
-//            Point firstPoint = curShape.getPointList().getFirst();
-//            Point lastPoint = curShape.getPointList().getLast();
-//            if(curShape.getPointList().size() == 0){        //如果是单机鼠标,没有记录点
-//                return;
-//            }
-//            Point firstPoint = curShape.getPointList().get(0);
-//            Point lastPoint = new Point(e.getX(), e.getY());
-//            g2.drawLine(firstPoint.getX(), firstPoint.getY(), lastPoint.getX(), lastPoint.getY());
-
-//            //记录为一个图形
-//            board.addShape(curShape);
-////            shapeArrayList.add(curShape);
-//
-//            //释放时进行识别
-//            String recognizeResult = shapeProcess.recognizeShape(curShape);
-//            curShape.setType(recognizeResult);      //记录，还原时不需再识别
-//            Point centerPoint = curShape.getCenterPoint();
-//            g2.drawString(recognizeResult, centerPoint.getX(), centerPoint.getY());
-//
-//            curShape = new MyShape();
         }
 
         @Override

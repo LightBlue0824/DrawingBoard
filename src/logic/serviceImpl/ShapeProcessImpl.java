@@ -38,14 +38,18 @@ public class ShapeProcessImpl implements ShapeProcessService {
                 }
                 break;
             }
+            //通过第一个顶点和第一边的两个顶点之间x,y差值，以及第一笔的方向（顺时针or逆时针），交替x,y既可计算出后续点
             case "正方形":{
                 ArrayList<Point> tempVertexList = shape.getVertexList();
                 int differenceX = tempVertexList.get(1).getX() - tempVertexList.get(0).getX();
                 int differenceY = tempVertexList.get(1).getY() - tempVertexList.get(0).getY();
 
                 boolean isClockWise = isClockWise(shape, differenceX, differenceY);     //判断是否是顺时针
+
+                //计算剩下顶点的位置
                 for(int i = 2; i < tempVertexList.size(); i+=2){
 
+                    //顺时针和逆时针，取反的x,y不同
                     if(isClockWise){
                         int tempDifferenceX = differenceX;
                         differenceX = -differenceY;
@@ -64,6 +68,7 @@ public class ShapeProcessImpl implements ShapeProcessService {
                 result = tempVertexList;
                 break;
             }
+            //同正方形，边长区分长短边，每边上的x,y差值需由边长和夹角计算
             case "长方形":{
                 ArrayList<Point> tempVertexList = shape.getVertexList();
                 double[] longAndShort = calcLongAndShort(tempVertexList);       //计算长短边
@@ -76,10 +81,12 @@ public class ShapeProcessImpl implements ShapeProcessService {
                 double firstLineLen = Math.sqrt(Math.pow(differenceX,2)+Math.pow(differenceX, 2));        //第一条边的长度
                 boolean isLong = Math.abs(firstLineLen-short_avg) > Math.abs(firstLineLen-long_avg);       //是否是长边
 
+                //计算剩下顶点的位置
                 for(int i = 2; i < tempVertexList.size()+2; i+=2){
                     isLong = !isLong;       //长短交替
                     double curLen = isLong ? long_avg : short_avg;
 
+                    //顺时针和逆时针，取反的x,y不同
                     if(isClockWise){
                         int tempDifferenceX = differenceX;
                         differenceX = -differenceY;
@@ -90,17 +97,19 @@ public class ShapeProcessImpl implements ShapeProcessService {
                         differenceX = differenceY;
                         differenceY = tempDifferenceX;
                     }
-                    if(differenceX == 0){
+
+                    if(differenceX == 0){       //防止除0
                         differenceX = 0;
                         differenceY = differenceY/Math.abs(differenceY)*(int)Math.abs(curLen);
                     }
                     else{
                         double slope = differenceY*1.0/differenceX;
                         differenceX = differenceX/Math.abs(differenceX)*(int)Math.abs(curLen*Math.cos(Math.atan(slope)));
-                        if(differenceY != 0){
+                        if(differenceY != 0){      //防止除0
                             differenceY = differenceY/Math.abs(differenceY)*(int)Math.abs(curLen*Math.sin(Math.atan(slope)));
                         }
                     }
+
                     //计算新的线段端点
                     Point lastPoint = tempVertexList.get((i-1)%8);
                     tempVertexList.set(i%8, lastPoint);
@@ -158,6 +167,8 @@ public class ShapeProcessImpl implements ShapeProcessService {
 
     /**
      * 计算规范化圆的半径
+     * @param shape 图形
+     * @return 计算得出的半径
      */
     private int calcStdCircleRadius(MyShape shape){
         int radius;
@@ -175,6 +186,7 @@ public class ShapeProcessImpl implements ShapeProcessService {
      * @return 是否是顺时针
      */
     private boolean isClockWise(MyShape shape, int differenceX, int differenceY){
+        //2个方向都计算，测试哪个方向差距小就是
         boolean result;
 
         ArrayList<Point> pointList = shape.getPointList();
@@ -187,6 +199,7 @@ public class ShapeProcessImpl implements ShapeProcessService {
         Point point_2 = new Point(lastPoint.getX()+differenceX_2, lastPoint.getY()+differenceY_2);
         int sum_1 = 0, sum_2 = 0;
 
+        //循环计算和每个点的差距
         for(int i = 0; i < pointList.size(); i++){
             Point cur = pointList.get(i);
             sum_1 = sum_1 + cur.getX()-point_1.getX() + cur.getY()-point_1.getY();
@@ -202,11 +215,12 @@ public class ShapeProcessImpl implements ShapeProcessService {
     }
 
     /**
-     * 计算图形的长和宽
+     * 计算矩形的长和宽
      * @param vertexList 端点列表
      * @return [0]:宽，[1]:长
      */
     private double[] calcLongAndShort(ArrayList<Point> vertexList){
+        //计算每条边的长度，然后排序，长和宽取均值
         double[] result = new double[2];
         double[] lengthArr = new double[4];
         for(int i = 0; i < 4; i++){
