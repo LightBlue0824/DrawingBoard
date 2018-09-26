@@ -17,6 +17,7 @@ public class BoardIODataImpl implements BoardIODataService {
      */
     @Override
     public boolean saveBoard(MyBoard board, String filename) {
+        boolean result = true;
         try {
             FileOutputStream fs = new FileOutputStream(path+filename+".ser");
             ObjectOutputStream os = new ObjectOutputStream(fs);
@@ -24,9 +25,10 @@ public class BoardIODataImpl implements BoardIODataService {
             fs.close();
             os.close();
         } catch (IOException e) {
+            result = false;
             e.printStackTrace();
         }
-        return false;
+        return result;
     }
 
     /**

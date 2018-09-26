@@ -101,6 +101,7 @@ public class MainUI {
         public void actionPerformed(ActionEvent e) {
             String filename = filenameField.getText();
             boolean result = drawingBoard.saveBoard(filename);
+            System.out.println(result);
             if(result){     //保存成功，刷新文件列表
                 filenameListBox.addItem(filename);
             }
