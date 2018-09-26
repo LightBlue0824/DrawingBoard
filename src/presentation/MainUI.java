@@ -14,7 +14,7 @@ public class MainUI {
     private JFrame frame;           //窗口
     private DrawingBoard drawingBoard;
     private JTextField filenameField;
-    JComboBox<String> filenameListBox;
+    private JComboBox<String> filenameListBox;
 
     private BoardIOLogicService boardIOLogic = LogicController.getBoardIOLogicImpl();
 
